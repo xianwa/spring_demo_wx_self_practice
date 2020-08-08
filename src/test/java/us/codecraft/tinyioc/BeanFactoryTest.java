@@ -1,7 +1,6 @@
 package us.codecraft.tinyioc;
 
 import us.codecraft.tinyioc.factory.AutowiredCapableBeanFactory;
-import us.codecraft.tinyioc.factory.BeanFactory;
 
 /**
  * @author xian.wang
@@ -9,14 +8,19 @@ import us.codecraft.tinyioc.factory.BeanFactory;
  */
 public class BeanFactoryTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setBeanClassName("us.codecraft.tinyioc.HelloService");
+
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("text","haahahha"));
+        beanDefinition.setPropertyValues(propertyValues);
+
         AutowiredCapableBeanFactory autowiredCapableBeanFactory = new AutowiredCapableBeanFactory();
         autowiredCapableBeanFactory.registerBeanDefinition("hello",beanDefinition);
 
-        Object hello = autowiredCapableBeanFactory.getBean("hello");
-        System.out.println(hello);
+        HelloService hello = (HelloService) autowiredCapableBeanFactory.getBean("hello");
+        System.out.println(hello.getText());
 
     }
 }

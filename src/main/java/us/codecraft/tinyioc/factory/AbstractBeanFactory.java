@@ -15,7 +15,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     private Map<String,BeanDefinition> container = Maps.newHashMap();
 
     @Override
-    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception {
         Object bean = doCreateBean(beanDefinition);
         beanDefinition.setBean(bean);
         container.put(name,beanDefinition);
@@ -26,5 +26,5 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return container.get(name).getBean();
     }
 
-    protected abstract Object doCreateBean(BeanDefinition definition);
+    protected abstract Object doCreateBean(BeanDefinition definition) throws Exception;
 }

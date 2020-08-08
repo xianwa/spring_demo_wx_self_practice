@@ -1,6 +1,11 @@
 package us.codecraft.tinyioc.factory;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import us.codecraft.tinyioc.BeanDefinition;
+import us.codecraft.tinyioc.PropertyValue;
+import us.codecraft.tinyioc.PropertyValues;
 
 /**
  * @author xian.wang
@@ -9,17 +14,24 @@ import us.codecraft.tinyioc.BeanDefinition;
 public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
 
     @Override
-    protected Object doCreateBean(BeanDefinition beanDefinition) {
-        String beanClassName = beanDefinition.getBeanClassName();
-        try {
-            return Class.forName(beanClassName).newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception{
+        Object bean = createBean(beanDefinition);
+        applyPropertyValue(bean,beanDefinition);
+        return bean;
+    }
+
+    private void applyPropertyValue(Object bean, BeanDefinition beanDefinition) throws Exception {
+        PropertyValues propertyValues = beanDefinition.getPropertyValues();
+        List<PropertyValue> propertyValueList = propertyValues.getPropertyValueList();
+        for (PropertyValue propertyValue : propertyValueList) {
+            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+            declaredField.setAccessible(true);
+            declaredField.set(bean,propertyValue.getValue());
         }
-        return null;
+
+    }
+
+    private Object createBean(BeanDefinition beanDefinition) throws Exception{
+        return beanDefinition.getBeanClass().newInstance();
     }
 }
