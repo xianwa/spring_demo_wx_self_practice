@@ -1,5 +1,8 @@
 package us.codecraft.tinyioc;
 
+import us.codecraft.tinyioc.factory.AutowiredCapableBeanFactory;
+import us.codecraft.tinyioc.factory.BeanFactory;
+
 /**
  * @author xian.wang
  * @since 下午3:23 2020/8/8
@@ -7,9 +10,13 @@ package us.codecraft.tinyioc;
 public class BeanFactoryTest {
 
     public static void main(String[] args) {
-        BeanFactory beanFactory = new BeanFactory();
-        beanFactory.registerBeanDefinition("hello",new BeanDefinition(new HelloService()));
-        HelloService helloService = (HelloService) beanFactory.getBean("hello");
-        System.out.println(helloService);
+        BeanDefinition beanDefinition = new BeanDefinition();
+        beanDefinition.setBeanClassName("us.codecraft.tinyioc.HelloService");
+        AutowiredCapableBeanFactory autowiredCapableBeanFactory = new AutowiredCapableBeanFactory();
+        autowiredCapableBeanFactory.registerBeanDefinition("hello",beanDefinition);
+
+        Object hello = autowiredCapableBeanFactory.getBean("hello");
+        System.out.println(hello);
+
     }
 }
