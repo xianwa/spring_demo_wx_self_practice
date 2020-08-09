@@ -8,6 +8,8 @@ public class HelloService {
 
     private String text;
 
+    private OutputService outputService;
+
     public String getText() {
         return text;
     }
@@ -18,5 +20,13 @@ public class HelloService {
 
     public HelloService() {
         System.out.println("hello service");
+    }
+
+    public void setOutputService(OutputService outputService) {
+        this.outputService = outputService;
+    }
+
+    public OutputService getOutputService() {
+        return outputService;
     }
 }
