@@ -1,6 +1,12 @@
 package us.codecraft.tinyioc;
 
+import java.util.Map;
+
 import us.codecraft.tinyioc.factory.AutowiredCapableBeanFactory;
+import us.codecraft.tinyioc.factory.BeanFactory;
+import us.codecraft.tinyioc.io.Resource;
+import us.codecraft.tinyioc.io.ResourceLoader;
+import us.codecraft.tinyioc.xml.XmlBeanDefinitionReader;
 
 /**
  * @author xian.wang
@@ -9,18 +15,18 @@ import us.codecraft.tinyioc.factory.AutowiredCapableBeanFactory;
 public class BeanFactoryTest {
 
     public static void main(String[] args) throws Exception {
-        BeanDefinition beanDefinition = new BeanDefinition();
-        beanDefinition.setBeanClassName("us.codecraft.tinyioc.HelloService");
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+        xmlBeanDefinitionReader.loadBeanDefinitions("tinyioc.xml");
 
-        PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("text","haahahha"));
-        beanDefinition.setPropertyValues(propertyValues);
+        BeanFactory beanFactory = new AutowiredCapableBeanFactory();
+        Map<String, BeanDefinition> register = xmlBeanDefinitionReader.getRegister();
+        for (Map.Entry<String, BeanDefinition> stringBeanDefinitionEntry : register.entrySet()) {
+            String name = stringBeanDefinitionEntry.getKey();
+            BeanDefinition beanDefinition = stringBeanDefinitionEntry.getValue();
+            beanFactory.registerBeanDefinition(name,beanDefinition);
+        }
 
-        AutowiredCapableBeanFactory autowiredCapableBeanFactory = new AutowiredCapableBeanFactory();
-        autowiredCapableBeanFactory.registerBeanDefinition("hello",beanDefinition);
-
-        HelloService hello = (HelloService) autowiredCapableBeanFactory.getBean("hello");
-        System.out.println(hello.getText());
-
+        HelloService helloService = (HelloService) beanFactory.getBean("hello");
+        System.out.println(helloService.getText());
     }
 }
