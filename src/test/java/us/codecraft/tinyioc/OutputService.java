@@ -6,14 +6,14 @@ package us.codecraft.tinyioc;
  */
 public class OutputService {
 
-    private HelloService helloService;
+    private HelloService helloWorldService;
 
     public HelloService getHelloService() {
-        return helloService;
+        return helloWorldService;
     }
 
     public void setHelloWorldService(HelloService helloWorldService) {
-        helloService = helloWorldService;
+        helloWorldService = helloWorldService;
     }
 }
 

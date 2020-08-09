@@ -2,6 +2,7 @@ package us.codecraft.tinyioc;
 
 import java.util.Map;
 
+import us.codecraft.tinyioc.factory.AbstractBeanFactory;
 import us.codecraft.tinyioc.factory.AutowiredCapableBeanFactory;
 import us.codecraft.tinyioc.factory.BeanFactory;
 import us.codecraft.tinyioc.io.Resource;
@@ -26,7 +27,9 @@ public class BeanFactoryTest {
             beanFactory.registerBeanDefinition(name,beanDefinition);
         }
 
-        HelloService helloService = (HelloService) beanFactory.getBean("hello");
+        beanFactory.preInstantiateSingletons();
+
+        HelloService helloService = (HelloService) beanFactory.getBean("helloWorldService");
         System.out.println(helloService.getText());
     }
 }

@@ -1,9 +1,13 @@
 package us.codecraft.tinyioc.xml;
 
+import com.sun.deploy.util.StringUtils;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import sun.swing.StringUIClientPropertyKey;
 
 import java.io.InputStream;
 
@@ -12,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import us.codecraft.tinyioc.AbstractBeanDefinitionReader;
 import us.codecraft.tinyioc.BeanDefinition;
+import us.codecraft.tinyioc.BeanReference;
 import us.codecraft.tinyioc.PropertyValue;
 import us.codecraft.tinyioc.PropertyValues;
 import us.codecraft.tinyioc.io.Resource;
@@ -78,8 +83,16 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 Element propertyEle = (Element) propertyNode;
                 String name = propertyEle.getAttribute("name");
                 String value = propertyEle.getAttribute("value");
-                PropertyValue propertyValue = new PropertyValue(name, value);
-                propertyValues.addPropertyValue(propertyValue);
+                if (value != null && value.length() > 0) {
+                    PropertyValue propertyValue = new PropertyValue(name, value);
+                    propertyValues.addPropertyValue(propertyValue);
+                } else {
+                    String ref = propertyEle.getAttribute("ref");
+                    if(ref != null && ref.length() > 0){
+                        BeanReference beanReference = new BeanReference(ref);
+                        propertyValues.addPropertyValue(new PropertyValue(name, beanReference));
+                    }
+                }
             }
             beanDefinition.setPropertyValues(propertyValues);
         }
