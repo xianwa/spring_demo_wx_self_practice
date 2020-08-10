@@ -16,5 +16,6 @@
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>
-
+    <bean name="beanInitializeLogger" class="us.codecraft.tinyioc.BeanInitializeLogger">
+    </bean>
 </beans>
