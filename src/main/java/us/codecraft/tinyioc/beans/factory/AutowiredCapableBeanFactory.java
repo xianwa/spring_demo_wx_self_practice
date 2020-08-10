@@ -1,4 +1,4 @@
-package us.codecraft.tinyioc.factory;
+package us.codecraft.tinyioc.beans.factory;
 
 import java.lang.reflect.Field;
 import java.util.List;

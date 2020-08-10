@@ -1,4 +1,4 @@
-package us.codecraft.tinyioc.factory;
+package us.codecraft.tinyioc.beans.factory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -22,7 +22,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return beanDefinitionNames;
     }
 
-    @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception {
         container.put(name,beanDefinition);
         beanDefinitionNames.add(name);
@@ -41,7 +40,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return bean;
     }
 
-    @Override
     public void preInstantiateSingletons() throws Exception {
         for (String beanDefinitionName : beanDefinitionNames) {
             getBean(beanDefinitionName);

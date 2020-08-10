@@ -6,7 +6,7 @@ import java.net.URL;
  * @author xian.wang
  * @since 下午8:00 2020/8/8
  */
-public class ResourceLoader {
+public class  ResourceLoader {
 
     public Resource getResource(String location){
         URL resource = this.getClass().getClassLoader().getResource(location);
