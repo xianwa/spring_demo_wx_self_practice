@@ -9,6 +9,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
     <bean id="outputService" class="us.codecraft.tinyioc.OutputServiceImpl">
+        <property name="helloWorldService" ref="helloWorldService"></property>
     </bean>
 
     <bean id="helloWorldService" class="us.codecraft.tinyioc.HelloWorldServiceImpl">
@@ -16,13 +17,7 @@
         <property name="outputService" ref="outputService"></property>
     </bean>
 
-    <bean id="timeInterceptor" class="us.codecraft.tinyioc.aop.TimerInterceptor"></bean>
-
-    <bean id="autoProxyCreator" class="us.codecraft.tinyioc.aop.AspectJAwareAdvisorAutoProxyCreator"></bean>
-
-    <bean id="aspectjAspect" class="us.codecraft.tinyioc.aop.AspectJExpressionPointcutAdvisor">
-        <property name="advice" ref="timeInterceptor"></property>
-        <property name="expression" value="execution(* us.codecraft.tinyioc.*.*(..))"></property>
+    <bean id="beanInitializeLogger" class="us.codecraft.tinyioc.BeanInitializeLogger">
     </bean>
 
 </beans>
