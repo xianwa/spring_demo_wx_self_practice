@@ -27,7 +27,7 @@ local.properties
 .settings/
 .factorypath
 .loadpath
-.idea
+.idea/
 .svn
 .log
 application.pid
