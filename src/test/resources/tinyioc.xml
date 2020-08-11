@@ -8,13 +8,13 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-    <bean name="outputService" class="us.codecraft.tinyioc.OutputService">
+    <bean name="outputServiceImpl" class="us.codecraft.tinyioc.OutputServiceImpl">
         <property name="helloWorldService" ref="helloWorldService"></property>
     </bean>
 
     <bean name="helloWorldService" class="us.codecraft.tinyioc.aop.HelloServiceImpl">
         <property name="text" value="Hello World!"></property>
-        <property name="outputService" ref="outputService"></property>
+        <property name="outputServiceImpl" ref="outputServiceImpl"></property>
     </bean>
     <bean name="beanInitializeLogger" class="us.codecraft.tinyioc.BeanInitializeLogger">
     </bean>

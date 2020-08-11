@@ -1,7 +1,7 @@
 package us.codecraft.tinyioc.aop;
 
 import us.codecraft.tinyioc.HelloService;
-import us.codecraft.tinyioc.OutputService;
+import us.codecraft.tinyioc.OutputServiceImpl;
 
 /**
  * @author xian.wang
@@ -10,7 +10,7 @@ import us.codecraft.tinyioc.OutputService;
 public class HelloServiceImpl implements HelloService {
     private String text;
 
-    private OutputService outputService;
+    private OutputServiceImpl outputServiceImpl;
 
     @Override
     public void helloWorld(){
@@ -29,11 +29,11 @@ public class HelloServiceImpl implements HelloService {
         System.out.println("hello service init");
     }
 
-    public void setOutputService(OutputService outputService) {
-        this.outputService = outputService;
+    public void setOutputServiceImpl(OutputServiceImpl outputServiceImpl) {
+        this.outputServiceImpl = outputServiceImpl;
     }
 
-    public OutputService getOutputService() {
-        return outputService;
+    public OutputServiceImpl getOutputServiceImpl() {
+        return outputServiceImpl;
     }
 }
