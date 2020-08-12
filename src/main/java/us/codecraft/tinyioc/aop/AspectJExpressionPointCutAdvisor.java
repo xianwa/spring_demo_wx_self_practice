@@ -1,6 +1,6 @@
 package us.codecraft.tinyioc.aop;
 
-import org.aspectj.weaver.Advice;
+import org.aopalliance.aop.Advice;
 
 /**
  * @author xian.wang
@@ -12,17 +12,21 @@ public class AspectJExpressionPointCutAdvisor implements PointCutAdvisor {
 
     private Advice advice;
 
+    public void setAdvice(Advice advice) {
+        this.advice = advice;
+    }
+
     public void setExpression(String expression){
         pointCut.setExpression(expression);
     }
 
     @Override
     public PointCut getPointCut() {
-        return null;
+        return pointCut;
     }
 
     @Override
     public Advice getAdvice() {
-        return null;
+        return advice;
     }
 }

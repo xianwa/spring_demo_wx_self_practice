@@ -1,13 +1,10 @@
-package us.codecraft.tinyioc.aop;
-
-import us.codecraft.tinyioc.HelloService;
-import us.codecraft.tinyioc.OutputService;
+package us.codecraft.tinyioc;
 
 /**
  * @author xian.wang
  * @since 下午4:47 2020/8/10
  */
-public class HelloServiceImpl implements HelloService {
+public class HelloWorldServiceImpl implements HelloService {
     private String text;
 
     private OutputService outputService;
@@ -25,15 +22,15 @@ public class HelloServiceImpl implements HelloService {
         this.text = text;
     }
 
-    public HelloServiceImpl() {
+    public HelloWorldServiceImpl() {
         System.out.println("hello service init");
-    }
-
-    public void setOutputService(OutputService outputService) {
-        this.outputService = outputService;
     }
 
     public OutputService getOutputService() {
         return outputService;
+    }
+
+    public void setOutputService(OutputService outputService) {
+        this.outputService = outputService;
     }
 }

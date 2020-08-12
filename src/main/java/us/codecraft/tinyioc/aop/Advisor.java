@@ -1,6 +1,6 @@
 package us.codecraft.tinyioc.aop;
 
-import org.aspectj.weaver.Advice;
+import org.aopalliance.aop.Advice;
 
 /**
  * @author xian.wang

@@ -29,13 +29,14 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         beanPostProcessors.add(beanPostProcessor);
     }
 
-    public void initializeBean(Object bean, String beanName) {
+    public Object initializeBean(Object bean, String beanName) throws Exception {
         for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
-            beanPostProcessor.postProcessBeforeInitialization(bean, beanName);
+            bean = beanPostProcessor.postProcessBeforeInitialization(bean, beanName);
         }
         for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
-            beanPostProcessor.postProcessAfterInitialization(bean, beanName);
+            bean = beanPostProcessor.postProcessAfterInitialization(bean, beanName);
         }
+        return bean;
     }
 
     public List<String> getBeanDefinitionNames() {
@@ -56,7 +57,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         Object bean = beanDefinition.getBean();
         if (bean == null) {
             bean = doCreateBean(beanDefinition);
-            initializeBean(bean,name);
+            bean = initializeBean(bean,name);
         }
         return bean;
     }
@@ -68,30 +69,17 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     }
 
     protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
-        Object bean = createBean(beanDefinition);
+        Object bean = createBeanInstance(beanDefinition);
         // 注意:这儿有个递归,如果把setBean放到applyPropertyValue下,会导致内存溢出
         beanDefinition.setBean(bean);
         applyPropertyValue(bean, beanDefinition);
         return bean;
     }
 
-    private void applyPropertyValue(Object bean, BeanDefinition beanDefinition) throws Exception {
-        PropertyValues propertyValues = beanDefinition.getPropertyValues();
-        List<PropertyValue> propertyValueList = propertyValues.getPropertyValueList();
-        for (PropertyValue propertyValue : propertyValueList) {
-            Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
-            declaredField.setAccessible(true);
-            Object value = propertyValue.getValue();
-            if (value instanceof BeanReference) {
-                BeanReference beanReference = (BeanReference) value;
-                value = getBean(beanReference.getName());
-            }
-            declaredField.set(bean, value);
-        }
-
+    protected void applyPropertyValue(Object bean, BeanDefinition beanDefinition) throws Exception {
     }
 
-    private Object createBean(BeanDefinition beanDefinition) throws Exception {
+    private Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
         return beanDefinition.getBeanClass().newInstance();
     }
 

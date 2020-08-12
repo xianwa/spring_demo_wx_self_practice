@@ -3,6 +3,7 @@ package us.codecraft.tinyioc.aop;
 import org.junit.Test;
 
 import us.codecraft.tinyioc.HelloService;
+import us.codecraft.tinyioc.HelloWorldServiceImpl;
 
 /**
  * @author xian.wang
@@ -25,7 +26,7 @@ public class AspectJExpressionPointcutTest {
         AspectJExpressionPointCut aspectJExpressionPointCut = new AspectJExpressionPointCut();
         aspectJExpressionPointCut.setExpression(expression);
         boolean matches = aspectJExpressionPointCut.getMethodMatcher()
-                .matches(HelloServiceImpl.class.getDeclaredMethod("helloWorld"), HelloServiceImpl.class);
+                .matches(HelloWorldServiceImpl.class.getDeclaredMethod("helloWorld"), HelloWorldServiceImpl.class);
         System.out.println(matches);
     }
 }
