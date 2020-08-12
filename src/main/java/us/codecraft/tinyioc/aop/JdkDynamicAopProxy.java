@@ -13,22 +13,26 @@ import java.lang.reflect.Proxy;
  */
 public class JdkDynamicAopProxy implements AopProxy, InvocationHandler {
 
-    private AdvisedSupport advisedSupport;
+    private AdvisedSupport advised;
 
-    public JdkDynamicAopProxy(AdvisedSupport advisedSupport) {
-        this.advisedSupport = advisedSupport;
+    public JdkDynamicAopProxy(AdvisedSupport advised) {
+        this.advised = advised;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        MethodInterceptor methodInterceptor = advisedSupport.getMethodInterceptor();
-        ReflectiveMethodInvocation reflectiveMethodInvocation = new ReflectiveMethodInvocation(advisedSupport.getTargetSource().getTarget(), method, args);
-        return methodInterceptor.invoke(reflectiveMethodInvocation);
+        MethodInterceptor methodInterceptor = advised.getMethodInterceptor();
+        if (advised.getMethodMatcher() != null && advised.getMethodMatcher()
+                .matches(method, advised.getTargetSource().getTarget().getClass())) {
+            return methodInterceptor.invoke(new ReflectiveMethodInvocation(advised.getTargetSource().getTarget(), method, args));
+        } else{
+            return method.invoke(advised.getTargetSource().getTarget(),args);
+        }
     }
 
     @Override
     public Object getProxy() {
         return Proxy.newProxyInstance(getClass().getClassLoader(),
-                new Class[]{advisedSupport.getTargetSource().getTargetClass()}, this);
+                advised.getTargetSource().getTargetClass(), this);
     }
 }

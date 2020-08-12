@@ -8,6 +8,7 @@ import us.codecraft.tinyioc.BeanDefinition;
 import us.codecraft.tinyioc.BeanReference;
 import us.codecraft.tinyioc.PropertyValue;
 import us.codecraft.tinyioc.PropertyValues;
+import us.codecraft.tinyioc.aop.BeanFactoryAware;
 
 /**
  * @author xian.wang
@@ -17,6 +18,10 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
 
     @Override
     protected void applyPropertyValue(Object bean, BeanDefinition beanDefinition) throws Exception {
+        if(bean instanceof BeanFactoryAware){
+            ((BeanFactoryAware) bean).setBeanFactory(this);
+        }
+
         PropertyValues propertyValues = beanDefinition.getPropertyValues();
         List<PropertyValue> propertyValueList = propertyValues.getPropertyValueList();
         for (PropertyValue propertyValue : propertyValueList) {
@@ -27,7 +32,8 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
                 value = getBean(beanReference.getName());
             }
             try {
-                Method declaredMethod = bean.getClass().getDeclaredMethod("set" + name.substring(0, 1).toUpperCase() + name.substring(1), value.getClass());
+                Method declaredMethod = bean.getClass().getDeclaredMethod(
+                        "set" + name.substring(0, 1).toUpperCase() + name.substring(1), value.getClass());
                 declaredMethod.setAccessible(true);
 
                 declaredMethod.invoke(bean, value);

@@ -20,7 +20,7 @@
 
     <bean id="autoProxyCreator" class="us.codecraft.tinyioc.aop.AspectJAwareAdvisorAutoProxyCreator"></bean>
 
-    <bean id="aspectjAspect" class="us.codecraft.tinyioc.aop.AspectJExpressionPointcutAdvisor">
+    <bean id="aspectjAspect" class="us.codecraft.tinyioc.aop.AspectJExpressionPointCutAdvisor">
         <property name="advice" ref="timeInterceptor"></property>
         <property name="expression" value="execution(* us.codecraft.tinyioc.*.*(..))"></property>
     </bean>
