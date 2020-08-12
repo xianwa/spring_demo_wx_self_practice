@@ -11,7 +11,7 @@ public class BeanFactoryTest {
 
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("tinyioc.xml");
-        HelloService helloService = (HelloService) applicationContext.getBean("helloWorldService");
-        helloService.helloWorld();
+        HelloWorldService helloWorldService = (HelloWorldService) applicationContext.getBean("helloWorldService");
+        helloWorldService.helloWorld();
     }
 }

@@ -2,10 +2,6 @@ package us.codecraft.tinyioc.aop;
 
 import org.junit.Test;
 
-import us.codecraft.tinyioc.HelloService;
-import us.codecraft.tinyioc.beans.context.ApplicationContext;
-import us.codecraft.tinyioc.beans.context.ClassPathXmlApplicationContext;
-
 /**
  * @author xian.wang
  * @since 下午4:36 2020/8/10

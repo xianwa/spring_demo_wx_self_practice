@@ -11,14 +11,14 @@
     <bean id="outputService" class="us.codecraft.tinyioc.OutputServiceImpl">
     </bean>
 
-    <bean id="helloWorldService" class="us.codecraft.tinyioc.HelloWorldServiceImpl">
+    <bean id="helloWorldService" class="us.codecraft.tinyioc.HelloWorldWorldServiceImpl">
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>
 
-    <bean id="timeInterceptor" class="us.codecraft.tinyioc.aop.TimerInterceptor"></bean>
-
     <bean id="autoProxyCreator" class="us.codecraft.tinyioc.aop.AspectJAwareAdvisorAutoProxyCreator"></bean>
+
+    <bean id="timeInterceptor" class="us.codecraft.tinyioc.aop.TimerInterceptor"></bean>
 
     <bean id="aspectjAspect" class="us.codecraft.tinyioc.aop.AspectJExpressionPointCutAdvisor">
         <property name="advice" ref="timeInterceptor"></property>

@@ -12,7 +12,7 @@
         <property name="helloWorldService" ref="helloWorldService"></property>
     </bean>
 
-    <bean id="helloWorldService" class="us.codecraft.tinyioc.HelloWorldServiceImpl">
+    <bean id="helloWorldService" class="us.codecraft.tinyioc.HelloWorldWorldServiceImpl">
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>

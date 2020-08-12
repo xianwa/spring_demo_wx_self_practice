@@ -2,7 +2,7 @@ package us.codecraft.tinyioc.context;
 
 import org.junit.Test;
 
-import us.codecraft.tinyioc.HelloService;
+import us.codecraft.tinyioc.HelloWorldService;
 import us.codecraft.tinyioc.beans.context.ApplicationContext;
 import us.codecraft.tinyioc.beans.context.ClassPathXmlApplicationContext;
 
@@ -15,14 +15,14 @@ public class ApplicationContextTest {
     @Test
     public void test() throws Exception{
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("tinyioc.xml");
-        HelloService helloWorldService = (HelloService) applicationContext.getBean("helloWorldService");
+        HelloWorldService helloWorldService = (HelloWorldService) applicationContext.getBean("helloWorldService");
         helloWorldService.helloWorld();
     }
 
     @Test
     public void testPostBeanProcessor() throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("tinyioc-postbeanprocessor.xml");
-        HelloService helloWorldService = (HelloService) applicationContext.getBean("helloWorldService");
+        HelloWorldService helloWorldService = (HelloWorldService) applicationContext.getBean("helloWorldService");
         helloWorldService.helloWorld();
     }
 

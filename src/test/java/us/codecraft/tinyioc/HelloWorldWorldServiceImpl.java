@@ -4,7 +4,7 @@ package us.codecraft.tinyioc;
  * @author xian.wang
  * @since 下午4:47 2020/8/10
  */
-public class HelloWorldServiceImpl implements HelloService {
+public class HelloWorldWorldServiceImpl implements HelloWorldService {
     private String text;
 
     private OutputService outputService;
@@ -22,7 +22,7 @@ public class HelloWorldServiceImpl implements HelloService {
         this.text = text;
     }
 
-    public HelloWorldServiceImpl() {
+    public HelloWorldWorldServiceImpl() {
         System.out.println("hello service init");
     }
 
