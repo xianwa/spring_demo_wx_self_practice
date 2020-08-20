@@ -45,7 +45,6 @@ public class AspectJAwareAdvisorAutoProxyCreator implements BeanPostProcessor,Be
                 return advisedSupport.getProxy();
             }
         }
-
         return bean;
     }
 }
